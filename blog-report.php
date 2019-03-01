@@ -31,8 +31,10 @@ function get_blog_info()
               $the_query->the_post();
               $content .= "<a href ='" . get_permalink() . "'>" .get_the_title() . "</a><br>" ;
               $content .= get_the_date() . "<br>";
-
-
+              $categories = get_the_category();
+              foreach ($categories as $cat) {
+                  $content .= "/" . $cat->name;
+              }
 
               $content .= "<br>---------<br>";
           endwhile;
