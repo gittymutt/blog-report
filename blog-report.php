@@ -41,7 +41,7 @@ function get_blog_info()
               $content .= $the_content;
               $content .= "<br><br>";
 
-              array_push($db_array, array(get_the_title(),get_the_date(),get_permalink()));
+              array_push($db_array, array($the_title,$the_date,$the_permalink,$the_categories, $the_content));
           endwhile;
 
           wp_reset_postdata();
