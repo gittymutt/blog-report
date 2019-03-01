@@ -20,15 +20,25 @@ function get_blog_info()
 
           while ( $the_query->have_posts() ) :
               $the_query->the_post();
-              $content .= "<a href ='" . get_permalink() . "'>" .get_the_title() . "</a><br>" ;
-              $content .= get_the_date() . "<br>";
+
+              $the_title = get_the_title();
+              $the_permalink = get_permalink();
+              $the_date = get_the_date();
+              $the_categories = "";
               $categories = get_the_category();
-              $content .= "(";
               foreach ($categories as $cat) {
-                  $content .= "/" . $cat->name;
+                  $the_categories .= "/" . $cat->name;
               }
+              $the_content = substr(get_the_content(),0, 100) . "...";
+
+
+
+              $content .= "<a href ='" . $the_permalink . "'>" . $the_title . "</a><br>";
+              $content .= $the_date . "<br>";
+              $content .= "(";
+              $content .= $the_categories;
               $content .= ")<br>";
-              $content .= substr(get_the_content(),0, 100) . "....<br>";
+              $content .= $the_content;
               $content .= "<br><br>";
 
               array_push($db_array, array(get_the_title(),get_the_date(),get_permalink()));
