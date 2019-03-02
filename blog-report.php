@@ -37,7 +37,7 @@ function get_blog_info()
               foreach ($categories as $cat) {
                   $the_categories .= "/" . $cat->name;
               }
-              $the_content = strip_tags(substr(get_the_content(),0, 100)) . "...";
+              $the_content = substr(trim(strip_tags(get_the_content())),0, 100) . "...";
 
 
 
