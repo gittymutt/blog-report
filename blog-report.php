@@ -8,7 +8,14 @@ function get_blog_info()
 {
   $db_array = [];
   $content = "";
+  $path = trailingslashit(wp_upload_dir()['basedir']) . "blog-reports/" ;
+  if (!file_exists($path)) {
+      mkdir($path, 0755, true);
+  }
 
+  $file_name = "blog_data.csv";
+
+  $content .= "<a href='" . trailingslashit(wp_upload_dir()['baseurl']) ."blog-reports/".  $file_name . "' > Download CSV File</a><br>";
 
       $args = array( 'posts_per_page' => -1 );
       $the_query = new WP_Query( $args );
@@ -54,7 +61,7 @@ $path = trailingslashit(wp_upload_dir()['basedir']) . "blog-reports/" ;
 if (!file_exists($path)) {
     mkdir($path, 0755, true);
 }
-$handle = fopen($path . "blog_data.csv", "w");
+$handle = fopen($path . $file_name, "w");
 foreach ($db_array as $line) {
   fputcsv($handle, $line);
 }
