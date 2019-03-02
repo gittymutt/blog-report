@@ -50,8 +50,11 @@ function get_blog_info()
           _e( 'Sorry, no posts matched your criteria.' );
       endif;
 $test_array = [[1,2,3], [4,5,6]];
-$dir = plugin_dir_path( __DIR__ );
-$handle = fopen($dir . "blog_data.csv", "w");
+$path = trailingslashit(wp_upload_dir()['basedir']) . "blog-reports/" ;
+if (!file_exists($path)) {
+    mkdir($path, 0755, true);
+}
+$handle = fopen($path . "blog_data.csv", "w");
 foreach ($db_array as $line) {
   fputcsv($handle, $line);
 }
