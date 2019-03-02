@@ -7,6 +7,7 @@
 function get_blog_info()
 {
   $db_array = [];
+  array_push($db_array, array("Title", "Date", "Permalink", "Categories", "Excerpt"));
   $content = "";
   $path = trailingslashit(wp_upload_dir()['basedir']) . "blog-reports/" ;
   if (!file_exists($path)) {
