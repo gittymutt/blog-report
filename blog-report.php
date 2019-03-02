@@ -14,8 +14,8 @@ function get_blog_info()
   }
 
   $file_name = "blog_data.csv";
-
-  $content .= "<a href='" . trailingslashit(wp_upload_dir()['baseurl']) ."blog-reports/".  $file_name . "' > Download CSV File</a><br>";
+  $css = "style='border: 3px solid blue;border-radius: 5px;padding: 15px;background-color:coral;'";
+  $content .= "<a ".$css." href='" . trailingslashit(wp_upload_dir()['baseurl']) ."blog-reports/".  $file_name . "' > Download CSV File</a><br>";
 
       $args = array( 'posts_per_page' => -1 );
       $the_query = new WP_Query( $args );
