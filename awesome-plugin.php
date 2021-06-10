@@ -17,7 +17,7 @@
 
 
      $db_array = [];
-     array_push($db_array, array("Title", "Date", "Permalink", "Categories", "Excerpt"));
+     array_push($db_array, array("Title", "Date", "Permalink", "Categories", "Tags", "Excerpt"));
      $content = "";
      $path = trailingslashit(wp_upload_dir()['basedir']) . "blog-reports/" ;
      if (!file_exists($path)) {
@@ -43,9 +43,17 @@
                  $the_permalink = get_permalink();
                  $the_date = get_the_date();
                  $the_categories = "";
+                 $the_tags = "";
                  $categories = get_the_category();
                  foreach ($categories as $cat) {
                      $the_categories .= "/" . $cat->name;
+                 }
+                 if (get_the_tags()) {
+                    $tags = get_the_tags();
+
+                    foreach($tags as $tag) {
+                        $the_tags .= "/" . $tag->name;
+                    }
                  }
                  $the_content = substr(trim(strip_tags(get_the_content())),0, 100) . "...";
 
@@ -57,10 +65,12 @@
                  $content .= "(";
                  $content .= $the_categories;
                  $content .= ")<br>";
+                 $content .= $the_tags;
+                 $content .= "<br>";
                  $content .= $the_content;
                  $content .= "<br><br>";
 
-                 array_push($db_array, array($the_title,$the_date,$the_permalink,$the_categories, $the_content));
+                 array_push($db_array, array($the_title,$the_date,$the_permalink,$the_categories, $the_tags, $the_content));
 
              endwhile;
 
