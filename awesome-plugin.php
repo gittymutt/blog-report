@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Blog Report
- * Description: Create a downloadablespreadsheet
+ * Description: Create a downloadable spreadsheet
  * file that summarizes all of your blog posts
  */
 
@@ -17,7 +17,7 @@
 
 
      $db_array = [];
-     array_push($db_array, array("Title", "Date", "Permalink", "Image URL", "Categories", "Tags", "Excerpt"));
+     array_push($db_array, array("Title", "Categories","Date", "Permalink", "Image URL", "Tags", "Excerpt"));
      $content = "";
      $path = trailingslashit(wp_upload_dir()['basedir']) . "blog-reports/" ;
      if (!file_exists($path)) {
@@ -80,7 +80,7 @@
                  $content .= "<br><br>";
                  $content .= get_the_tags();
 
-                 array_push($db_array, array($the_title,$the_date,$the_permalink,$the_image_url, $the_categories, $the_tags, $the_content));
+                 array_push($db_array, array($the_title, $the_categories, $the_date,$the_permalink,$the_image_url, $the_tags, $the_content));
 
              endwhile;
 
