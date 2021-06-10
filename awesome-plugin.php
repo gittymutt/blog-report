@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Awesome Plugin
- * Description: So awesome and amazing, we can't begin to tell you what this does.
- *
+ * Plugin Name: Blog Report
+ * Description: Create a downloadablespreadsheet
+ * file that summarizes all of your blog posts
  */
 
 
@@ -51,6 +51,7 @@
 
 
 
+
                  $content .= "<a href ='" . $the_permalink . "'>" . $the_title . "</a><br>";
                  $content .= $the_date . "<br>";
                  $content .= "(";
@@ -60,6 +61,7 @@
                  $content .= "<br><br>";
 
                  array_push($db_array, array($the_title,$the_date,$the_permalink,$the_categories, $the_content));
+
              endwhile;
 
              wp_reset_postdata();
