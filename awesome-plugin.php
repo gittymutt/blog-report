@@ -3,6 +3,8 @@
  * Plugin Name: Blog Report
  * Description: Create a downloadable spreadsheet
  * file that summarizes all of your blog posts
+ * Version: 2.0.0
+ * Author: Peter Schmitz
  */
 
 
@@ -17,7 +19,16 @@
 
 
      $db_array = [];
-     array_push($db_array, array("Title", "Categories","Date", "Permalink", "Image URL", "Tags", "Excerpt"));
+     array_push($db_array, array("Title", 
+                                "Categories",
+                                "Date", 
+                                "Permalink", 
+                                "Image URL", 
+                                "Tags", 
+                                "Excerpt",
+                                "Meta Title",
+                                "Meta Description"
+                            ));
      $content = "";
      $path = trailingslashit(wp_upload_dir()['basedir']) . "blog-reports/" ;
      if (!file_exists($path)) {
@@ -30,7 +41,6 @@
 
          $args = array( 'posts_per_page' => -1 );
          $the_query = new WP_Query( $args );
-         //$content .= wp_list_categories();
          $content .= "<h2>Total Posts: " . $the_query->found_posts . "</h2>";
 
          if ( $the_query->have_posts() ) :
@@ -46,6 +56,8 @@
                  $the_tags = "";
                  $the_image_url = "";
                  $categories = get_the_category();
+                 $the_meta_title = "";
+                 $the_meta_description = "";
                  
                  foreach ($categories as $cat) {
                      $the_categories .= "/" . $cat->name;
@@ -64,8 +76,9 @@
                  }
                  $the_content = substr(trim(strip_tags(get_the_content())),0, 100) . "...";
 
-
-
+                 $the_meta_title = get_post_meta( get_the_ID(), "_yoast_wpseo_title", true );
+                 $the_meta_description = get_post_meta( get_the_ID(), "_yoast_wpseo_metadesc", true );
+               
 
                  $content .= "<a href ='" . $the_permalink . "'>" . $the_title . "</a><br>";
                  $content .= $the_date . "<br>";
@@ -77,10 +90,19 @@
                  $content .= $the_image_url;
                  $content .= "<br>";
                  $content .= $the_content;
-                 $content .= "<br><br>";
-                 $content .= get_the_tags();
+                 $content .= "<br>" . $the_meta_title . "<br>";
+                 $content .= "<br>" . $the_meta_description . "<br>";
 
-                 array_push($db_array, array($the_title, $the_categories, $the_date,$the_permalink,$the_image_url, $the_tags, $the_content));
+                 array_push($db_array, array($the_title, 
+                                            $the_categories, 
+                                            $the_date,
+                                            $the_permalink,
+                                            $the_image_url, 
+                                            $the_tags, 
+                                            $the_content,
+                                            $the_meta_title,
+                                            $the_meta_description
+                                        ));
 
              endwhile;
 
@@ -89,7 +111,7 @@
          else :
              _e( 'Sorry, no posts matched your criteria.' );
          endif;
-     $test_array = [[1,2,3], [4,5,6]];
+   
      $path = trailingslashit(wp_upload_dir()['basedir']) . "blog-reports/" ;
      if (!file_exists($path)) {
        mkdir($path, 0755, true);
